@@ -104,14 +104,7 @@ git push -u origin main
 
 ---
 
-## ⚠️ ÖNEMLİ: Token'ı URL'den Kaldır!
 
-Şu anda token'ın URL'de görünüyor:
-```
-https://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@github.com/...
-```
-
-Bu güvenlik riski! Push yaptıktan sonra remote'u temizle:
 
 ```bash
 # Remote'u sil

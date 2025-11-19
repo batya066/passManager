@@ -96,8 +96,6 @@ git push -u origin main
 ```
 
 **Örnek:**
-```bash
-git remote add origin https://ghp_abc123xyz456@github.com/tanjiro123/pass-manager.git
 ```
 
 **⚠️ DİKKAT:** Bu yöntem güvenli değil çünkü token URL'de görünür. Sadece test için kullan!
