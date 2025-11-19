@@ -1,0 +1,99 @@
+Metadata-Version: 2.4
+Name: pass-manager-tanjiro
+Version: 0.1.0
+Summary: AES-GCM ile şifrelenmiş kişisel şifre yöneticisi
+Author: Tanjiro
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: cryptography>=42.0.5
+Requires-Dist: rich>=13.7.0
+Requires-Dist: PySide6>=6.7.2
+Provides-Extra: dev
+Requires-Dist: pytest>=8.3.0; extra == "dev"
+
+# Kişiye Özel Şifre Yöneticisi
+
+Bu proje, güçlü kriptografi ve modern güvenlik ilkeleriyle tasarlanmış minimalist ama üst düzey korumalı bir şifre yöneticisidir. Tüm veriler tek bir kasada AES‑GCM ile şifrelenir, ana parola PBKDF2‑HMAC (SHA‑512) ile sertleştirilmiş bir anahtara dönüştürülür ve kasanın tamamı bütünlük kontrolüyle saklanır.
+
+## Öne Çıkan Özellikler
+
+- Tamamen yerel çalışır; ağ erişimi gerekmez.
+- AES‑256‑GCM şifreleme ve yüksek iterasyonlu PBKDF2 ile anahtar türetme.
+- Servis, kullanıcı adı, etiket ve not saklayabilen kayıt yapısı.
+- Güçlü parola üreticisi (uzunluk, sembol seti, kolay okunur mod vb.).
+- CLI üzerinden hızlı komutlar: `init`, `add`, `list`, `show`, `delete`, `generate`.
+- Kasa dosyası yolu özelleştirilebilir; varsayılan olarak `~/.pass_manager/vault.sec`.
+- Tüm zaman damgaları Gürcistan yerel saatine (UTC+4) göre kaydedilir ve gösterilir.
+
+## Kurulum
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate  # PowerShell
+pip install -e .[dev]
+```
+
+## Kullanım
+
+### Kasa Oluşturma
+
+```bash
+python -m pass_manager init
+```
+
+### Kayıt Ekleme
+
+```bash
+python -m pass_manager add --service github --username tanjiro
+```
+
+CLI, parola girmenizi ya da otomatik üretmenizi sağlar. Kayıt, şifrelenmiş kasaya eklenir.
+
+### Kayıtları Listeleme
+
+```bash
+python -m pass_manager list
+```
+
+### Bir Kaydı Görüntüleme
+
+```bash
+python -m pass_manager show --id <ENTRY_ID>
+```
+
+### Parola Üretme
+
+```bash
+python -m pass_manager generate --length 28 --symbols hard
+```
+
+## Qt Tabanlı GUI
+
+Grafik arayüz, CLI ile aynı güvenlik katmanlarını kullanır ve PySide6 sayesinde Windows/macOS/Linux üzerinde yerel görünümlü çalışır.
+
+1. Uygulamayı başlatın:
+   ```bash
+   pass-manager-gui
+   # veya
+   python -m pass_manager.gui
+   ```
+2. Açılış diyaloğunda mevcut kasayı seçip ana parolayı girin ya da aynı ekrandan yeni bir kasa oluşturun.
+3. Ana pencerede kayıtları tablo halinde görebilir, çift tıklayarak detay panelinde görüntüleyebilir, parolayı geçici olarak gösterebilir veya panoya kopyalayabilirsiniz (30 saniye sonra otomatik temizlenir).
+4. “Kayıt Ekle” diyaloğu, CLI ile aynı parola üreticisini içerir; uzunluk/sembol seçeneklerini değiştirerek güvenli parolalar üretebilirsiniz.
+
+GUI ve CLI aynı kasayı paylaşır; dilediğiniz zaman aralarında geçiş yapabilirsiniz.
+
+## Güvenlik Notları
+
+- Ana parolayı asla paylaşmayın; unutursanız kasayı kurtarmanın yolu yoktur.
+- Kasa dosyasını düzenli olarak yedekleyin.
+- CLI'yı kullanırken çıktıların terminal geçmişinden temizlendiğinden emin olun.
+
+## Test
+
+```bash
+pytest
+```
+
+*(Testler henüz eklenmedi; geliştirme sırasında eklenecektir.)*
+

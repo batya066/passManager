@@ -1,0 +1,3 @@
+[console_scripts]
+pass-manager = pass_manager.cli:main
+pass-manager-gui = pass_manager.gui.app:launch

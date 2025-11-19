@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pass Manager - Web</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+</head>
+<body>
+    <div class="container">
+        <!-- Login/Register Screen -->
+        <div id="auth-screen" class="screen active">
+            <div class="auth-card">
+                <h1>🔐 Pass Manager</h1>
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Giriş</button>
+                    <button class="tab-btn" data-tab="register">Kayıt</button>
+                </div>
+                
+                <form id="login-form" class="auth-form active">
+                    <input type="text" id="login-username" placeholder="Kullanıcı adı" required>
+                    <input type="password" id="login-password" placeholder="Parola" required>
+                    <input type="text" id="login-api-url" placeholder="API URL (otomatik doldurulur)" style="display: none;">
+                    <button type="submit">Giriş Yap</button>
+                    <div id="auth-error" class="error-message"></div>
+                </form>
+                
+                <form id="register-form" class="auth-form">
+                    <input type="text" id="register-username" placeholder="Kullanıcı adı" required>
+                    <input type="password" id="register-password" placeholder="Parola (min 8 karakter)" required>
+                    <input type="text" id="register-api-url" placeholder="API URL (otomatik doldurulur)" style="display: none;">
+                    <button type="submit">Kayıt Ol</button>
+                    <div id="register-error" class="error-message"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main App Screen -->
+        <div id="app-screen" class="screen">
+            <header>
+                <h1>🔐 Pass Manager</h1>
+                <div class="header-actions">
+                    <button id="sync-btn" class="btn-secondary">🔄 Senkronize Et</button>
+                    <button id="logout-btn" class="btn-secondary">Çıkış</button>
+                </div>
+            </header>
+
+            <div class="master-password-prompt" id="master-password-prompt">
+                <div class="prompt-card">
+                    <h2>Ana Parola</h2>
+                    <input type="password" id="master-password-input" placeholder="Ana parolanızı girin" autofocus>
+                    <button id="unlock-btn" class="btn-primary">Kilidi Aç</button>
+                    <div id="master-password-error" class="error-message"></div>
+                </div>
+            </div>
+
+            <div id="vault-content" class="vault-content hidden">
+                <div class="toolbar">
+                    <input type="search" id="search-input" placeholder="🔍 Ara (servis, kullanıcı, etiket)">
+                    <button id="add-entry-btn" class="btn-primary">+ Yeni Kayıt</button>
+                </div>
+
+                <div id="entries-list" class="entries-list"></div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Entry Modal -->
+        <div id="entry-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="modal-title">Yeni Kayıt</h2>
+                <form id="entry-form">
+                    <input type="text" id="entry-service" placeholder="Servis (örn: GitHub)" required>
+                    <input type="text" id="entry-username" placeholder="Kullanıcı adı" required>
+                    <div class="password-input-group">
+                        <input type="password" id="entry-password" placeholder="Parola" required>
+                        <button type="button" id="generate-password-btn" class="btn-secondary">🎲 Üret</button>
+                    </div>
+                    <input type="text" id="entry-tags" placeholder="Etiketler (virgülle ayrılmış)">
+                    <textarea id="entry-notes" placeholder="Notlar"></textarea>
+                    <div class="modal-actions">
+                        <button type="button" id="cancel-btn" class="btn-secondary">İptal</button>
+                        <button type="submit" class="btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Entry Detail Modal -->
+        <div id="detail-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="detail-service"></h2>
+                <div class="detail-content">
+                    <div class="detail-item">
+                        <label>Kullanıcı:</label>
+                        <span id="detail-username"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Parola:</label>
+                        <div class="password-display">
+                            <span id="detail-password" class="password-hidden">●●●●●●●●●●●●</span>
+                            <button id="reveal-password-btn" class="btn-small">👁️ Göster</button>
+                            <button id="copy-password-btn" class="btn-small">📋 Kopyala</button>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Etiketler:</label>
+                        <span id="detail-tags"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Notlar:</label>
+                        <span id="detail-notes"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Oluşturuldu:</label>
+                        <span id="detail-created"></span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="delete-entry-btn" class="btn-danger">🗑️ Sil</button>
+                    <button id="close-detail-btn" class="btn-secondary">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="crypto.js"></script>
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
