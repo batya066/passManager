@@ -110,6 +110,27 @@ GitHub'da repository'ne git, dosyaların orada olduğunu gör!
 
 ## 🆘 Sorun mu Var?
 
+### "rejected" veya "authentication failed" hatası
+
+**📖 DETAYLI ÇÖZÜM:** `GITHUB_SORUN_COZUM.md` dosyasına bak! Orada tüm çözümler var.
+
+**Hızlı çözüm:**
+1. Credential'ları temizle:
+```bash
+git credential-manager erase https://github.com
+```
+
+2. Personal Access Token al (yukarıda anlatıldı)
+
+3. Tekrar dene:
+```bash
+git push -u origin main
+```
+
+4. İstendiğinde:
+   - Username: GitHub kullanıcı adın
+   - Password: Normal parolan DEĞİL, TOKEN'ı yapıştır
+
 ### "fatal: not a git repository"
 ```bash
 git init
@@ -126,6 +147,7 @@ git remote add origin https://github.com/KULLANICI_ADIN/REPO_ADI.git
 - Personal Access Token kullandın mı?
 - Token'ı doğru kopyaladın mı?
 - `repo` scope'u var mı?
+- Credential'ları temizledin mi?
 
 ### "Permission denied"
 - GitHub'da repository'yi oluşturdun mu?
