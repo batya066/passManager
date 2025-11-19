@@ -24,8 +24,11 @@ Railway'a **TÜM PROJEYİ** yüklüyoruz. Bu şu demek:
 
 ### Eğer projen GitHub'da YOKSA:
 
-1. GitHub'da yeni bir repository oluştur
-2. Bilgisayarında terminal aç:
+**📖 DETAYLI KILAVUZ:** `GITHUB_KURULUM.md` dosyasına bak! Orada her şey adım adım anlatılmış.
+
+**Kısa özet:**
+1. GitHub'da yeni repository oluştur (https://github.com → "+" → "New repository")
+2. Bilgisayarında PowerShell veya CMD aç:
 ```bash
 cd C:\Users\Tanjiro\Documents\CODEX\passManager
 git init
@@ -35,6 +38,11 @@ git branch -M main
 git remote add origin https://github.com/KULLANICI_ADIN/repo_adi.git
 git push -u origin main
 ```
+
+**⚠️ ÖNEMLİ:** 
+- `KULLANICI_ADIN` ve `repo_adi` kısımlarını kendi bilgilerinle değiştir!
+- `git push` komutunda GitHub kullanıcı adı ve **Personal Access Token** isteyecek
+- Normal parola değil, token gerekli! `GITHUB_KURULUM.md` dosyasında nasıl alınacağı anlatılmış
 
 ### Eğer projen GitHub'da VARSA:
 Hiçbir şey yapma, devam et!
